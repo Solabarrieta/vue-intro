@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Inputs Reactivos en Vue3</title>
+</head>
+
+<body>
+    <div id="app"></div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    text: 'Hola Vue',
+                    text2: 'Hola Vue',
+                    text3: 'Hola Vue',
+                };
+            },
+            methods: {
+                input(e) {
+                    this.text = e.target.value;
+                },
+                input2(e) {
+                    this.text2 = e.target.value;
+                }
+            },
+            template: `
+            <div class="container">
+                <h1>Inputs Reactivos</h1>
+                <div class="container-inputs">
+                <div class="input">
+                    <h2>Cambio con v-on:change</h2>
+                    <p>{{ text }}</p>
+                    <input type="text" v-on:change="input" v-bind:placeholder="text"/>
+                </div>
+                <div class="input">
+                    <h2>Cambio con v-on:input</h2>
+                    <p>{{ text2 }}</p>
+                    <input type="text2" v-on:input="input2" v-bind:placeholder="text2"/>
+                </div>
+                <div class="input">
+                    <h2>Cambio con v-model</h2>
+                    <p>{{ text3 }}</p>
+                    <input type="text" v-model="text3"/>
+                </div>
+                </div>
+            </div>
+
+                
+            `
+        }).mount("#app");
+    </script>
+    <style>
+        
+        h1 {
+            text-align: center;
+        }
+
+        .container-inputs {
+            display: flex;
+            justify-content: center;
+
+        }
+
+        .input {
+            margin: 5px 30px;
+            padding: 50px;
+            border: 1px solid grey;
+            border-radius: 15px;
+        }
+    </style>
+
+</body>
+
+</html>
