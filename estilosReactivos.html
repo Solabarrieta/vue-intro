@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Estilos Reactivos en Vue3</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        const app = Vue.createApp({
+            data(){
+                return {
+                    open: false,
+                    estadoPuerta: "Puerta cerrada",
+                    styles: {
+                        backgroundColor: "#eca1a6"
+                    }
+                };
+            },
+            computed: {
+                buttonLbl() {
+                    return this.open ? "Cerrar" : "Abrir" ;
+                }
+            },
+            watch: {
+                open(value) {
+                    if(value){
+                        this.estadoPuerta = "Puerta abierta";
+                        this.styles.backgroundColor = "#b5e7a0";
+                    }else{
+                        this.estadoPuerta = "Puerta cerrada"
+                        this.styles.backgroundColor = "#eca1a6";
+                    } 
+                }
+            },
+            template: `
+            <div class="container" :style="styles">
+                <h2>{{ estadoPuerta }}</h2>
+                <button @click="open = !open">{{ buttonLbl }}</button>
+            </div>
+            `
+        }).mount("#app");
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #app, .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        button {
+            margin-top: 24px;
+            border:  1px solid green;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+        }
+    </style>
+</body>
+</html>
