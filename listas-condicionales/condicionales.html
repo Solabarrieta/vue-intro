@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Condicionales en Vue</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        const app = Vue.createApp({
+            data(){
+                return {
+                    logged: false,
+                    logState: "Inicia Sesión",
+                    username: ""
+                };
+            },
+            computed: {
+                estilos() {
+                    return this.logged ? 'logged' : 'notlogged';
+                },
+            },
+            watch: {
+                logged(value) {
+                    if(value){
+                        this.logState = "Cierra Sesión";
+                    }else{
+                        this.logState = "Inicia Sesión";
+                        this.username = "";
+                    } 
+                },
+            },
+            template: `
+            <div class="container" :class="estilos">
+                <h2>{{ logState }}</h2>
+                <div v-if="logged">
+                    <p>Hola, {{ username }}</p>
+                </div>
+                <div v-else>
+                    <div>Username: </div>
+                    <input class="input-username" type="text" v-model="username" placeholder="Pepe"/>
+                </div>
+                <button @click="logged = !logged">
+                    <span v-if="!logged">Entrar</span>
+                    <span v-else>Salir</span>
+                </button>
+            </div>
+            `
+        }).mount("#app");
+    </script>
+    <style>
+        html, body {
+            height: 100%;
+            box-sizing: border-box;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        #app, .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        button {
+            margin-top: 24px;
+            border:  1px solid green;
+            background-color: white;
+            padding: 8px 24px;
+            border-radius: 12px;
+        }
+
+        .notlogged{
+            background-color: #eca1a6;
+        }
+        .logged{
+            background-color: #b5e7a0;
+        }
+        .input-username{
+            border: none;
+            border-radius: 6px;
+            padding-left: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</body>
+</html>
