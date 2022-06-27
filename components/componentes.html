@@ -1,0 +1,148 @@
+
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://unpkg.com/vue@next"></script>
+        <title>Componentes en Vue</title>
+    </head>
+
+    <body>
+        <div id="app"></div>
+        <script>
+            const app = Vue.createApp({
+            data(){
+                return {
+                    logged: false,
+                    logState: "Inicia Sesión",
+                    username: "",
+                    posts: [
+                        {
+                            title: "Un título",
+                            description: "Una descripción"
+                        },
+                        {
+                            title: "Un título 2",
+                            description: "Una descripción 2"
+                        },
+                        {
+                            title: "Un título 3",
+                            description: "Una descripción 3"
+                        },
+                        {
+                            title: "Un título 4",
+                            description: "Una descripción 4"
+                        },
+                    ]
+                };
+            },
+            computed: {
+                estilos() {
+                    return this.logged ? 'logged' : 'notlogged';
+                },
+            },
+            watch: {
+                logged(value) {
+                    if(value){
+                        this.logState = "Cierra Sesión";
+                    }else{
+                        this.logState = "Inicia Sesión";
+                        this.username = "";
+                    } 
+                },
+            },
+            template: `
+            <div class="container" :class="estilos">
+                <h2>{{ logState }}</h2>
+                <div v-if="logged">
+                    <p>Hola, {{ username }}</p>
+                    <div class="list">
+                        <item v-for="(item,i) in posts" :key="i" :post="item"/>
+                    </div>
+                </div>
+                <div v-else>
+                    <div>Username: </div>
+                    <input class="input-username" type="text" v-model="username" placeholder="Pepe"/>
+                </div>
+                <button @click="logged = !logged">
+                    <span v-if="!logged">Entrar</span>
+                    <span v-else>Salir</span>
+                </button>
+            </div>
+            `
+        })
+
+        app.component("item", {
+            props: ["post"],
+            template: `
+            <div class="item">
+                <h4>{{ post.title }}</h4>
+                <p>{{ post.description }}</p>
+            </div>
+            `
+
+        });
+        
+        const vm = app.mount("#app");
+        </script>
+        <style>
+            html,
+            body {
+                height: 100%;
+                box-sizing: border-box;
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            #app,
+            .container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                width: 100%;
+                height: 100%;
+            }
+
+            button {
+                margin-top: 24px;
+                border: 1px solid green;
+                background-color: white;
+                padding: 8px 24px;
+                border-radius: 12px;
+            }
+
+            .notlogged {
+                background-color: #eca1a6;
+            }
+
+            .logged {
+                background-color: #b5e7a0;
+                text-align: center;
+            }
+
+            .input-username {
+                border: none;
+                border-radius: 6px;
+                padding-left: 8px;
+                margin-top: 10px;
+            }
+
+            .list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-evenly;
+            }
+
+            .item {
+                border: 1px solid white;
+                border-radius: 10px;
+                padding: 1.4rem;
+            }
+        </style>
+    </body>
+
+    </html>
