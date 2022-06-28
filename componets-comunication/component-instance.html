@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@next"></script>
+    <title>Instancias de componentes en Vue</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    text: "Hola Vue"
+                };
+            },
+            template: `
+                <v-button ref="elemento" :label="text"/>
+            `
+        });
+
+        app.component("v-button", {
+            props: ["label"],
+            template: `<button>{{ label }}</button>`
+        })
+
+        const vm = app.mount("#app");
+        console.log(vm.$root); //Devuelve la raíz de los componentes.
+        console.log(vm.$el); //Devuelve el elemento donde se se ha hecho el mount
+        console.log(vm.$refs.elemento.label); //Devuelve los elementos donde se hayan hecho referencias.
+        console.log(vm.$props); //Devuelve todas las props
+    </script>
+</body>
+</html>

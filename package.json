@@ -1,0 +1,29 @@
+{
+  "name": "vue-intro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "progresive.vue",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Solabarrieta/vue-intro.git"
+  },
+  "keywords": [
+    "Vue",
+    "json",
+    "JavaScript",
+    "html",
+    "css"
+  ],
+  "author": "Oier Solabarrieta",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Solabarrieta/vue-intro/issues"
+  },
+  "homepage": "https://github.com/Solabarrieta/vue-intro#readme"
+}
